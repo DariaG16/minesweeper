@@ -1,0 +1,38 @@
+@import "./base.css";
+html,
+body,
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+body {
+  height: 100%;
+  animation-name: example;
+  animation-duration: 100s;
+  background-color: #70d6ff;
+  animation-iteration-count: infinite;
+  transition: 1s; /* #A7BED3 */
+}
+
+@keyframes example {
+  from {
+    background-color: #70d6ff;
+  }
+  20% {
+    background-color: #87e8c0;
+  }
+  40% {
+    background-color: #e8d687;
+  }
+  60% {
+    background-color: #ff99c0;
+  }
+  80% {
+    background-color: #e087e8;
+  }
+  to {
+    background-color: #70d6ff;
+  }
+}
