@@ -2,22 +2,34 @@
 import HelloWorld from "./components/HelloWorld.vue";
 import TheWelcome from "./components/TheWelcome.vue";
 import tile from "./components/tile.vue";
+import startBtn from "./components/startBtn.vue";
 </script>
 
 <template>
   <body>
     <header><h1>Minesweeper</h1></header>
-    <div><tile @click="reveal" v-for="item in items" :key="item"></tile></div>
+    <div>
+      <startBtn @start-click="makeTiles">NEW GAME</startBtn>
+      <tile @tile-click="reveal" v-for="item in items" :key="item"></tile>
+    </div>
   </body>
 </template>
 
 <script>
 export default {
+  name: "minesweeper",
+  components: { tile },
   data() {
     return {
       items: [],
       methods: {
-        reveal() {
+        makeTiles: function () {
+          for (let i = 0; i < 20; i++) {
+            this.items.push(Math.random());
+          }
+          console.log(this.items);
+        },
+        reveal: function () {
           //check if there is a bomb
           //if there is: function gameover
           //if there isn't: remove btn

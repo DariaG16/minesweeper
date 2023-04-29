@@ -1,5 +1,5 @@
 <template>
-  <button @click="reveal"></button>
+  <button @click="$emit(`tile-click`)"></button>
 </template>
 
 <script>
