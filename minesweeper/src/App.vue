@@ -8,9 +8,27 @@ import startBtn from "./components/startBtn.vue";
 <template>
   <body>
     <header><h1>Minesweeper</h1></header>
-    <div>
-      <startBtn @start-click="makeTiles">NEW GAME</startBtn>
-      <tile @tile-click="reveal" v-for="item in items" :key="item"></tile>
+    <div v-on:contextmenu.prevent>
+      <button
+        id="startBtn"
+        v-if="!hidden"
+        v-on:click="hidden = true"
+        @click="makeTiles(2)"
+      >
+        NEW GAME
+      </button>
+      <tile
+        @right-click="flag"
+        @tile-click="reveal"
+        v-for="item in items"
+        :key="item"
+        v-if="!revealed"
+        v-on:click="revealed = true"
+        :style="{
+          backgroundColor: flagged ? 'red' : 'white',
+        }"
+        >{{ item.help }}</tile
+      >
     </div>
   </body>
 </template>
@@ -21,26 +39,42 @@ export default {
   components: { tile },
   data() {
     return {
+      hidden: false,
+      revealed: false,
+      flagged: false,
       items: [],
-      methods: {
-        makeTiles: function () {
-          for (let i = 0; i < 20; i++) {
-            this.items.push(Math.random());
-          }
-          console.log(this.items);
-        },
-        reveal: function () {
-          //check if there is a bomb
-          //if there is: function gameover
-          //if there isn't: remove btn
-        },
-      },
     };
+  },
+  methods: {
+    makeTiles: function (max) {
+      for (let i = 0; i < 588; i++) {
+        this.items.push(`help: ${Math.floor(Math.random() * max)}`);
+      }
+      console.log(this.items);
+    },
+    reveal: function () {
+      console.log("revealed");
+      //check if there is a bomb
+      //if there is: function gameover
+      //if there isn't: remove btn
+    },
+    flag: function () {
+      console.log("flagged");
+    },
   },
 };
 </script>
 
 <style scoped>
+#startBtn {
+  padding: 50px;
+  font-size: 50px;
+  margin: 25%;
+  background-color: #ff9770;
+  /* border: solid #ff70a6 5px; */
+  color: #e9ff70;
+  cursor: pointer;
+}
 h1 {
   background-color: #ff9770;
   font-size: 60px;
@@ -58,5 +92,9 @@ div {
   height: 80vh;
   margin: 30px auto;
   border: solid #e9ff70 5px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
 }
 </style>

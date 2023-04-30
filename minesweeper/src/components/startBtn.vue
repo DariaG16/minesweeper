@@ -1,3 +1,4 @@
+<script setup></script>
 <template>
   <button @click="$emit(`note-click`)"><slot></slot></button>
 </template>
