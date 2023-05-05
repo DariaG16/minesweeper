@@ -18,17 +18,18 @@ import startBtn from "./components/startBtn.vue";
         NEW GAME
       </button>
       <tile
-        @right-click="flag"
+        @right-click="flagged = true"
         @tile-click="reveal"
-        v-for="item in items"
-        :key="item"
+        v-for="(bomb, index) in items"
+        :id="index + 1"
+        :item="bomb"
+        :key="bomb.bomb"
         v-if="!revealed"
         v-on:click="revealed = true"
         :style="{
-          backgroundColor: flagged ? 'red' : 'white',
+          backgroundColor: flagged ? 'red' : 'green',
         }"
-        >{{ item.help }}</tile
-      >
+      ></tile>
     </div>
   </body>
 </template>
@@ -48,7 +49,7 @@ export default {
   methods: {
     makeTiles: function (max) {
       for (let i = 0; i < 588; i++) {
-        this.items.push(`help: ${Math.floor(Math.random() * max)}`);
+        this.items.push(`{bomb: ${Math.floor(Math.random() * max)}}`);
       }
       console.log(this.items);
     },
@@ -60,6 +61,7 @@ export default {
     },
     flag: function () {
       console.log("flagged");
+      this.flagged = true;
     },
   },
 };

@@ -1,10 +1,12 @@
 <template>
   <button @click.right="$emit(`right-click`)" @click="$emit(`tile-click`)">
-    <slot></slot>
+    <h2>{{ item }}</h2>
+    <h3>{{ id }}</h3>
   </button>
 </template>
 
 <script>
+const props = { item: Object, id: Number };
 export default {
   name: "tile",
 };
